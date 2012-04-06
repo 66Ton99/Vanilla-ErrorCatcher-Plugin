@@ -1,3 +1,22 @@
 Vanilla Error Catcher Plugin
 
 It depends on https://github.com/formapro/UniversalErrorCatcher
+
+Installation:
+
+Put this code into config.php file
+
+$Configuration['Plugins']['ErrorCatcher']['To'] = 'Your_Name@example.com, Other_Name@example.com'; // This string must be compatible with RFC 2822
+
+And now you have to initialize the catcher. Put this code to bootstrap.php ~line 57 after Gdn::Config()->Load(PATH_CONF.'/config.php', 'Use');
+
+if (Gdn::Config('EnabledPlugins.ErrorCatcher')) { // It can be removed if you don't want to turn off this plugin from the admin panel
+    require_once dirname(__FILE__) . '/plugins/ErrorCatcher/lib/class.errorcatcherplugin.php';
+    ErrorCatcherPlugin::init(Gdn::Config('Plugins.ErrorCatcher'));
+}
+
+Yes it can be put to the plugin initialisation but in this case plugins which was loaded before will not be monitored
+
+TODO:
+
+1. Implement configuration of receivers list in the admin menu
