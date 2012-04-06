@@ -1,0 +1,3 @@
+[submodule "lib/UniversalErrorCatcher"]
+	path = lib/UniversalErrorCatcher
+	url = https://github.com/formapro/UniversalErrorCatcher.git
