@@ -1,6 +1,6 @@
 <?php if (!defined('APPLICATION')) exit();
 
-class ErrorCatcherPlugin extends Gdn_Plugin
+class ErrorCatcher
 {
 
    protected static $mailTo = '';
@@ -127,21 +127,5 @@ class ErrorCatcherPlugin extends Gdn_Plugin
       }
       --$depth;
       return $output;
-   }
-
-   /**
-    *
-    * @todo implement
-    * @param unknown_type $Sender
-    * @param unknown_type $Args
-    *
-    * @return void
-    */
-   protected function Settings_Index($Sender, $Args)
-   {
-
-      $Providers = self::GetProvider();
-      $Sender->SetData('Providers', $Providers);
-      $Sender->Render('Settings', '', 'plugins/ErrorCatcher');
    }
 }
