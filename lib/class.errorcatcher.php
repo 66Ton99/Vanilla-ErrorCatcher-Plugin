@@ -33,13 +33,17 @@ class ErrorCatcher
     */
    public static function catcher(Exception $e)
    {
-      if (in_array($e->getSeverity(), array(E_STRICT, E_NOTICE))) return; // TODO remove it in 2.1 verison
+      $code = $e->getCode();
+      if (method_exists($e, 'getSeverity')) {
+         $code = $e->getSeverity();
+      }
+      if (in_array($code, array(E_STRICT, E_NOTICE))) return; // TODO remove it in 2.1 verison
 
 
       $subject = ' Error: ' . substr($e->getMessage(), 0, 45);
-      $body = 'The error: ' . $e->getMessage() . "\n" .
+      $body = 'The error: ' . $e . "\n" .
          'In file `' . $e->getFile() . '` on line `' . $e->getLine() . '`' . "\n" .
-         'Code: ' . $e->getSeverity() . "\n" .
+         'Code: ' . $code . "\n" .
          'Trace: ' . $e->getTraceAsString() . "\n\n" .
          self::dump($_SERVER, 'SERVER') . "\n\n" .
          self::dump($_SESSION, 'SESSION');
